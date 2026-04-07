@@ -14,8 +14,8 @@ Thumbs.db
 # Demo recording artifacts (local only)
 terminalizer.config.yml
 demo.yml
-demo.gif
 demo-optimized.gif
+# demo.gif is intentionally committed to the repo for the README
 .vscode/
 .idea/
 *.suo

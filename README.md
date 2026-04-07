@@ -12,6 +12,8 @@ npx skillsense
 
 skillsense detects your project's tech stack from manifest files (`package.json`, `pyproject.toml`, `go.mod`, `Cargo.toml`, `Gemfile`) and installs the matching AI agent skills into your project — no configuration, no manual search.
 
+![skillsense demo](demo.gif)
+
 ## Demo
 
 ```
