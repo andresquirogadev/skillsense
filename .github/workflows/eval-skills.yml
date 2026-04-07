@@ -1,0 +1,130 @@
+name: Eval Skills
+
+on:
+  pull_request:
+    paths:
+      - "packages/catalog/skills/**"
+      - "packages/catalog/registry.yaml"
+
+jobs:
+  validate-registry:
+    name: Validate registry.yaml
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate registry schema
+        run: node --input-type=module <<'EOF'
+          import { readFileSync, readdirSync, existsSync } from 'node:fs';
+          import { join } from 'node:path';
+          import yaml from 'js-yaml';
+
+          const registryRaw = readFileSync('packages/catalog/registry.yaml', 'utf-8');
+          const registry = yaml.load(registryRaw);
+
+          const REQUIRED_FIELDS = ['version', 'path', 'sha256', 'agents', 'triggers', 'quality_score', 'last_eval'];
+          let errors = 0;
+
+          for (const [name, entry] of Object.entries(registry.skills)) {
+            // Check required fields
+            for (const field of REQUIRED_FIELDS) {
+              if (entry[field] === undefined || entry[field] === null) {
+                console.error(`  ✗ skills.${name}: missing required field "${field}"`);
+                errors++;
+              }
+            }
+            // Check SKILL.md exists
+            const skillPath = join('packages/catalog', entry.path);
+            if (!existsSync(skillPath)) {
+              console.error(`  ✗ skills.${name}: file not found at "${skillPath}"`);
+              errors++;
+            } else {
+              console.log(`  ✓ ${name}`);
+            }
+          }
+
+          if (errors > 0) {
+            console.error(`\n${errors} validation error(s) found.`);
+            process.exit(1);
+          }
+          console.log('\nAll skills validated successfully.');
+        EOF
+
+  smoke-test-skills:
+    name: Smoke test changed SKILL.md files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Find changed SKILL.md files
+        id: changed
+        run: |
+          CHANGED=$(git diff --name-only origin/${{ github.base_ref }}...HEAD -- 'packages/catalog/skills/**' | tr '\n' ' ')
+          echo "files=$CHANGED" >> "$GITHUB_OUTPUT"
+
+      - name: Validate SKILL.md format
+        run: |
+          ERRORS=0
+          for file in ${{ steps.changed.outputs.files }}; do
+            echo "Checking $file..."
+
+            # Must not be empty
+            if [ ! -s "$file" ]; then
+              echo "  ✗ $file: file is empty"
+              ERRORS=$((ERRORS+1))
+              continue
+            fi
+
+            # Must start with a level-1 heading
+            if ! head -1 "$file" | grep -qE '^#\s+'; then
+              echo "  ✗ $file: must start with a level-1 heading (# Title)"
+              ERRORS=$((ERRORS+1))
+            fi
+
+            # Must have at least 3 section headings (##) — ensures real content structure
+            SECTIONS=$(grep -cE '^##\s+' "$file" || true)
+            if [ "$SECTIONS" -lt 3 ]; then
+              echo "  ✗ $file: needs at least 3 sections (## Heading), found ${SECTIONS}"
+              ERRORS=$((ERRORS+1))
+            fi
+
+            # Minimum word count of 150
+            WORDS=$(wc -w < "$file")
+            if [ "$WORDS" -lt 150 ]; then
+              echo "  ✗ $file: too short (${WORDS} words, minimum 150)"
+              ERRORS=$((ERRORS+1))
+            fi
+
+            # Must not contain placeholder text
+            if grep -qiE '\bTBD\b|TODO:|placeholder' "$file"; then
+              echo "  ✗ $file: contains placeholder text (TBD / TODO)"
+              ERRORS=$((ERRORS+1))
+            fi
+
+            # Must contain at least one fenced code block (```)
+            if ! grep -q '```' "$file"; then
+              echo "  ✗ $file: no code examples found (add at least one fenced code block)"
+              ERRORS=$((ERRORS+1))
+            fi
+
+            if [ "$ERRORS" -eq 0 ]; then
+              echo "  ✓ $file (${SECTIONS} sections, ${WORDS} words)"
+            fi
+          done
+
+          if [ "$ERRORS" -gt 0 ]; then
+            echo ""
+            echo "${ERRORS} validation error(s) found in SKILL.md files."
+            exit 1
+          fi

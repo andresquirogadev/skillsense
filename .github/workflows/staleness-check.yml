@@ -1,0 +1,116 @@
+name: Staleness Check
+
+on:
+  schedule:
+    # Every Monday at 09:00 UTC
+    - cron: "0 9 * * 1"
+  workflow_dispatch: # allow manual trigger
+
+jobs:
+  check-stale-skills:
+    name: Flag skills not reviewed in 90+ days
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Find stale skills
+        id: stale
+        run: node --input-type=module <<'EOF'
+          import { readFileSync } from 'node:fs';
+          import yaml from 'js-yaml';
+
+          const STALE_DAYS = 90;
+          const now = new Date();
+
+          const raw = readFileSync('packages/catalog/registry.yaml', 'utf-8');
+          const registry = yaml.load(raw);
+
+          const stale = [];
+          for (const [name, entry] of Object.entries(registry.skills)) {
+            const lastEval = new Date(entry.last_eval);
+            const ageDays = Math.floor((now - lastEval) / (1000 * 60 * 60 * 24));
+            if (ageDays >= STALE_DAYS) {
+              stale.push({ name, ageDays, lastEval: entry.last_eval, version: entry.version });
+            }
+          }
+
+          if (stale.length === 0) {
+            console.log('No stale skills found.');
+            process.exit(0);
+          }
+
+          const rows = stale
+            .sort((a, b) => b.ageDays - a.ageDays)
+            .map(s => `| \`${s.name}\` | ${s.lastEval} | ${s.ageDays} days | ${s.version} |`)
+            .join('\n');
+
+          const body = [
+            '## Stale Skills Report',
+            '',
+            `The following ${stale.length} skill(s) have not been evaluated in ${STALE_DAYS}+ days.`,
+            'Please review them against the current state of their libraries and update `last_eval` in `registry.yaml`.',
+            '',
+            '| Skill | Last Eval | Age | Version |',
+            '|-------|-----------|-----|---------|',
+            rows,
+            '',
+            '### How to update a skill',
+            '1. Review the skill\'s SKILL.md against the library\'s latest changelog.',
+            '2. Make any necessary corrections or additions.',
+            '3. Update `last_eval` in `registry.yaml` to today\'s date (YYYY-MM-DD).',
+            '4. Increment `version` if content changed.',
+            '5. Open a PR — the eval CI will validate the updated file.',
+            '',
+            '_This issue was opened automatically by the staleness-check workflow._',
+          ].join('\n');
+
+          // Write to a temp file for the next step
+          import { writeFileSync } from 'node:fs';
+          writeFileSync('/tmp/stale-body.md', body);
+          writeFileSync('/tmp/stale-count.txt', String(stale.length));
+
+          console.log(`Found ${stale.length} stale skill(s).`);
+        EOF
+
+      - name: Check if stale count is non-zero
+        id: count
+        run: |
+          if [ -f /tmp/stale-count.txt ]; then
+            COUNT=$(cat /tmp/stale-count.txt)
+          else
+            COUNT=0
+          fi
+          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
+
+      - name: Close existing stale-skills issues
+        if: steps.count.outputs.count != '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Close previous open issues with the staleness label to avoid duplicates
+          gh issue list --label "stale-skills" --state open --json number \
+            | jq -r '.[].number' \
+            | xargs -I{} gh issue close {} --comment "Superseded by a newer staleness report." 2>/dev/null || true
+
+      - name: Open stale-skills issue
+        if: steps.count.outputs.count != '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --title "🔍 Stale skills need review ($(cat /tmp/stale-count.txt) skill(s))" \
+            --body-file /tmp/stale-body.md \
+            --label "stale-skills,maintenance"

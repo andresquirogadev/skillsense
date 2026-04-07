@@ -1,0 +1,234 @@
+skills:
+  nextjs:
+    version: "1.0.0"
+    path: "skills/nextjs/SKILL.md"
+    sha256: "b4d392281b7a117d0c35493bf68419edd7c1c73d010cd2c948c7e20eb8fcaa0a"
+    agents: [claude-code, opencode, copilot, vs-code]
+    triggers: [next, nextjs, "@next/core"]
+    quality_score: 95
+    last_eval: "2026-04-06"
+
+  react:
+    version: "1.0.0"
+    path: "skills/react/SKILL.md"
+    sha256: "8619cb0ef23edca8a2303706585ae154dc500f9f702a560128f5595efa55b17d"
+    agents: [claude-code, opencode, copilot, vs-code]
+    triggers: [react, react-dom]
+    quality_score: 95
+    last_eval: "2026-04-06"
+
+  vue:
+    version: "1.0.0"
+    path: "skills/vue/SKILL.md"
+    sha256: "8ad8f5ee7322f6b505ca9e92d7d7e4bfee86301009ca2dc7ff973ae63cfff9b0"
+    agents: [claude-code, opencode, copilot, vs-code]
+    triggers: [vue]
+    quality_score: 92
+    last_eval: "2026-04-06"
+
+  nuxt:
+    version: "1.0.0"
+    path: "skills/nuxt/SKILL.md"
+    sha256: "247f5c0090282db114cffe1937cdcae8bd8865013e75fd1363f58bbb09e231b8"
+    agents: [claude-code, opencode, copilot, vs-code]
+    triggers: [nuxt, "@nuxt/core"]
+    quality_score: 91
+    last_eval: "2026-04-06"
+
+  svelte:
+    version: "1.0.0"
+    path: "skills/svelte/SKILL.md"
+    sha256: "898c23b4e14b1c79852f6d76a2ba65ff1303f14474d2de6d38b39dcdbe213575"
+    agents: [claude-code, opencode, copilot, vs-code]
+    triggers: [svelte, "@sveltejs/kit"]
+    quality_score: 91
+    last_eval: "2026-04-06"
+
+  typescript:
+    version: "1.0.0"
+    path: "skills/typescript/SKILL.md"
+    sha256: "a3af292a6df9ca9c9a680ca1e4a2cdedc49dad94b2da35feab85317d3747af69"
+    agents: [claude-code, opencode, copilot, vs-code]
+    triggers: [typescript]
+    quality_score: 97
+    last_eval: "2026-04-06"
+
+  tailwindcss:
+    version: "1.0.0"
+    path: "skills/tailwindcss/SKILL.md"
+    sha256: "fc3e2ec3b31e81385b8a4da9896674595d0d3c142621cb21789e2d57e2a5f1fb"
+    agents: [claude-code, opencode, copilot, vs-code]
+    triggers: [tailwindcss]
+    quality_score: 93
+    last_eval: "2026-04-06"
+
+  prisma:
+    version: "1.0.0"
+    path: "skills/prisma/SKILL.md"
+    sha256: "e0a829b8608ccfcaf35a468652379a62a5bc9c688f0af68ba7a2b86f76d06d01"
+    agents: [claude-code, opencode, copilot, vs-code]
+    triggers: [prisma, "@prisma/client"]
+    quality_score: 94
+    last_eval: "2026-04-06"
+
+  drizzle:
+    version: "1.0.0"
+    path: "skills/drizzle/SKILL.md"
+    sha256: "ee906191d68fba2fa454d907607c9b224da7c09418bd7c942e78bb4bdabb6f27"
+    agents: [claude-code, opencode, copilot, vs-code]
+    triggers: [drizzle-orm, drizzle-kit]
+    quality_score: 91
+    last_eval: "2026-04-06"
+
+  supabase:
+    version: "1.0.0"
+    path: "skills/supabase/SKILL.md"
+    sha256: "a17bcaf07cb9eb155ae44ef160d524bb3ec480680c6fcc9f9627b7721e7ea348"
+    agents: [claude-code, opencode, copilot, vs-code]
+    triggers: ["@supabase/supabase-js", "@supabase/ssr"]
+    quality_score: 93
+    last_eval: "2026-04-06"
+
+  postgresql:
+    version: "1.0.0"
+    path: "skills/postgresql/SKILL.md"
+    sha256: "ce6a4fab678ba598e879262da19982d23af995cda1056b5947a83355c39755a4"
+    agents: [claude-code, opencode, copilot, vs-code]
+    triggers: [pg, postgres, "@neondatabase/serverless", psycopg2, asyncpg]
+    quality_score: 92
+    last_eval: "2026-04-06"
+
+  fastapi:
+    version: "1.0.0"
+    path: "skills/fastapi/SKILL.md"
+    sha256: "6aab995476bca8e3bade7523ed2563bca142c28b8ed2a17179d8bab7f6cd8d92"
+    agents: [claude-code, opencode, copilot, vs-code]
+    triggers: [fastapi, uvicorn, pydantic]
+    quality_score: 94
+    last_eval: "2026-04-06"
+
+  django:
+    version: "1.0.0"
+    path: "skills/django/SKILL.md"
+    sha256: "0bde3462d82ca07dcfa20d79c2919e9595b27749f339ddad2ad16cdfb4da45a8"
+    agents: [claude-code, opencode, copilot, vs-code]
+    triggers: [django, djangorestframework]
+    quality_score: 93
+    last_eval: "2026-04-06"
+
+  express:
+    version: "1.0.0"
+    path: "skills/express/SKILL.md"
+    sha256: "d6cb52771f36288077d3f7b3fcc46fd2bb9b2c8237e7f7f4c254b2605d14f7f5"
+    agents: [claude-code, opencode, copilot, vs-code]
+    triggers: [express]
+    quality_score: 90
+    last_eval: "2026-04-06"
+
+  nodejs:
+    version: "1.0.0"
+    path: "skills/nodejs/SKILL.md"
+    sha256: "2c2017808e60d10d9eaef060db709dc4bd018cc1153e236dfdaecdf8f5cec995"
+    agents: [claude-code, opencode, copilot, vs-code]
+    triggers: [node, fastify]
+    quality_score: 90
+    last_eval: "2026-04-06"
+
+  vitest:
+    version: "1.0.0"
+    path: "skills/vitest/SKILL.md"
+    sha256: "34fb83d8b8c04ebbaf50af00ff7589d1de5dc2a4b6f5a2a5e07a0fc25a7018b5"
+    agents: [claude-code, opencode, copilot, vs-code]
+    triggers: [vitest, "@vitest/ui"]
+    quality_score: 94
+    last_eval: "2026-04-06"
+
+  playwright:
+    version: "1.0.0"
+    path: "skills/playwright/SKILL.md"
+    sha256: "df634527d6fcef7fa583a6430c34c1bd96a9d135e5f38e191633314e36caa846"
+    agents: [claude-code, opencode, copilot, vs-code]
+    triggers: ["@playwright/test", playwright]
+    quality_score: 93
+    last_eval: "2026-04-06"
+
+  stripe:
+    version: "1.0.0"
+    path: "skills/stripe/SKILL.md"
+    sha256: "92856109961e549e8e6339435ad2e073e91a25e34f46ab179af4f81a80815c1a"
+    agents: [claude-code, opencode, copilot, vs-code]
+    triggers: [stripe, "@stripe/stripe-js"]
+    quality_score: 92
+    last_eval: "2026-04-06"
+
+  vercel:
+    version: "1.0.0"
+    path: "skills/vercel/SKILL.md"
+    sha256: "0c97fdc477c84e546dd79b45296a650deec2c756644511f15d638dfc17e392ca"
+    agents: [claude-code, opencode, copilot, vs-code]
+    triggers: ["@vercel/analytics", "@vercel/og", vercel]
+    quality_score: 91
+    last_eval: "2026-04-06"
+
+  cloudflare:
+    version: "1.0.0"
+    path: "skills/cloudflare/SKILL.md"
+    sha256: "993b1271a308c5037bcb11c898805a48c78149befb1712e466257d97134cde4e"
+    agents: [claude-code, opencode, copilot, vs-code]
+    triggers: ["@cloudflare/workers-types", wrangler]
+    quality_score: 91
+    last_eval: "2026-04-06"
+
+  docker:
+    version: "1.0.0"
+    path: "skills/docker/SKILL.md"
+    sha256: "9bcab69aa7aaf75abe546b3bad4ffc89e39335afb3c5eebd3134c5c59505757c"
+    agents: [claude-code, opencode, copilot, vs-code]
+    triggers: [docker]
+    quality_score: 90
+    last_eval: "2026-04-06"
+
+  go:
+    version: "1.0.0"
+    path: "skills/go/SKILL.md"
+    sha256: "TBD"
+    agents: [claude-code, opencode, copilot, vs-code]
+    triggers: [go]
+    quality_score: 92
+    last_eval: "2026-04-06"
+
+  rust:
+    version: "1.0.0"
+    path: "skills/rust/SKILL.md"
+    sha256: "396917830770517684787384b0e86646b9354c08f9a9b73a45f0071ccd6d93af"
+    agents: [claude-code, opencode, copilot, vs-code]
+    triggers: [rust]
+    quality_score: 92
+    last_eval: "2026-04-06"
+
+  python:
+    version: "1.0.0"
+    path: "skills/python/SKILL.md"
+    sha256: "f2781a31f799cb35e93924893a67485071db01930f2a0d8344f6c60df09a131f"
+    agents: [claude-code, opencode, copilot, vs-code]
+    triggers: [python, pytest, celery]
+    quality_score: 91
+    last_eval: "2026-04-06"
+
+  ruby:
+    version: "1.0.0"
+    path: "skills/ruby/SKILL.md"
+    sha256: "2bc10f8ec03acdcd7c48c8a2cc8970051b612371de881395be8b90f410b368cc"
+    agents: [claude-code, opencode, copilot, vs-code]
+    triggers: [ruby, rspec, sidekiq, devise]
+    quality_score: 90
+    last_eval: "2026-04-06"
+
+  rails:
+    version: "1.0.0"
+    path: "skills/rails/SKILL.md"
+    sha256: "f666873a90fbd8686e7ea2162615daa44e5e891293f0123c185f131f05529b04"
+    agents: [claude-code, opencode, copilot, vs-code]
+    triggers: [rails, "rspec-rails", puma, actioncable]
+    quality_score: 92
+    last_eval: "2026-04-06"

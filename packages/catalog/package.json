@@ -1,0 +1,11 @@
+{
+  "name": "@skillsense/catalog",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "update-hashes": "tsx scripts/update-hashes.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.3"
+  }
+}

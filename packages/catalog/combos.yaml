@@ -1,0 +1,76 @@
+combos:
+  # Next.js + Prisma (most common full-stack Next.js setup)
+  nextjs-prisma:
+    triggers: [nextjs, prisma]
+    skills: [nextjs, prisma, typescript]
+    order: [typescript, prisma, nextjs]
+    conflicts: [drizzle]
+
+  # Next.js + Drizzle ORM
+  nextjs-drizzle:
+    triggers: [nextjs, drizzle]
+    skills: [nextjs, drizzle, typescript]
+    order: [typescript, drizzle, nextjs]
+    conflicts: [prisma]
+
+  # Next.js + Supabase
+  nextjs-supabase:
+    triggers: [nextjs, supabase]
+    skills: [nextjs, supabase, typescript]
+    order: [typescript, supabase, nextjs]
+
+  # Full T3-style stack (Next.js + Prisma + Supabase)
+  nextjs-prisma-supabase:
+    triggers: [nextjs, prisma, supabase]
+    skills: [nextjs, prisma, supabase, typescript]
+    order: [typescript, prisma, supabase, nextjs]
+    conflicts: [drizzle]
+
+  # Next.js + Tailwind CSS + TypeScript
+  nextjs-tailwind:
+    triggers: [nextjs, tailwindcss]
+    skills: [nextjs, tailwindcss, typescript]
+    order: [typescript, tailwindcss, nextjs]
+
+  # Svelte / SvelteKit + Tailwind
+  svelte-tailwind:
+    triggers: [svelte, tailwindcss]
+    skills: [svelte, tailwindcss, typescript]
+    order: [typescript, tailwindcss, svelte]
+
+  # FastAPI + PostgreSQL
+  fastapi-postgres:
+    triggers: [fastapi, postgresql]
+    skills: [fastapi, postgresql, python]
+    order: [python, postgresql, fastapi]
+
+  # Django + PostgreSQL
+  django-postgres:
+    triggers: [django, postgresql]
+    skills: [django, postgresql, python]
+    order: [python, postgresql, django]
+
+  # Express + TypeScript
+  express-typescript:
+    triggers: [express, typescript]
+    skills: [express, typescript, nodejs]
+    order: [typescript, nodejs, express]
+
+  # Stripe + Next.js (e-commerce)
+  nextjs-stripe:
+    triggers: [nextjs, stripe]
+    skills: [nextjs, stripe, typescript]
+    order: [typescript, stripe, nextjs]
+
+  # Nuxt + Supabase
+  nuxt-supabase:
+    triggers: [nuxt, supabase]
+    skills: [nuxt, supabase, typescript]
+    order: [typescript, supabase, nuxt]
+
+  # Nuxt + Prisma
+  nuxt-prisma:
+    triggers: [nuxt, prisma]
+    skills: [nuxt, prisma, typescript]
+    order: [typescript, prisma, nuxt]
+    conflicts: [drizzle]
