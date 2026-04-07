@@ -14,7 +14,9 @@ const catalogRoot = join(__dirname, '..');
 
 async function computeSha256(filePath: string): Promise<string> {
   const content = await readFile(filePath, 'utf-8');
-  return createHash('sha256').update(content, 'utf-8').digest('hex');
+  // Normalize to LF so hashes match GitHub-served content regardless of OS
+  const normalized = content.replace(/\r\n/g, '\n');
+  return createHash('sha256').update(normalized, 'utf-8').digest('hex');
 }
 
 async function main() {

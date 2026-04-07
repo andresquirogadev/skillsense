@@ -38,7 +38,9 @@ function verifySha256(content: string, expectedHash: string): boolean {
   if (!cleaned || cleaned === 'TBD' || /^0+$/.test(cleaned)) {
     return true;
   }
-  const actual = createHash('sha256').update(content, 'utf-8').digest('hex');
+  // Normalize to LF before hashing so the result matches GitHub-served content
+  const normalized = content.replace(/\r\n/g, '\n');
+  const actual = createHash('sha256').update(normalized, 'utf-8').digest('hex');
   return actual === cleaned;
 }
 
