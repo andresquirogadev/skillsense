@@ -1,0 +1,16 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.env
+.env.local
+coverage/
+*.log
+.DS_Store
+Thumbs.db
+
+# IDE and AI assistant configuration (internal, not for contributors)
+.github/copilot-instructions.md
+.vscode/
+.idea/
+*.suo
+*.user
