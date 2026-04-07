@@ -1,0 +1,83 @@
+name: Bug report
+description: Something isn't working as expected
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please fill in as much detail as you can.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: A clear description of the bug.
+      placeholder: "When I run `npx skillsense` in a Next.js project, it..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+      placeholder: "I expected it to install the nextjs skill."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: How to reproduce
+      description: Steps to reproduce the problem.
+      placeholder: |
+        1. Create a project with `package.json` containing Next.js
+        2. Run `npx skillsense`
+        3. See error
+    validations:
+      required: true
+
+  - type: input
+    id: skillsense-version
+    attributes:
+      label: skillsense version
+      placeholder: "0.1.0 (run: npx skillsense --version)"
+    validations:
+      required: true
+
+  - type: input
+    id: node-version
+    attributes:
+      label: Node.js version
+      placeholder: "v22.0.0 (run: node --version)"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - macOS
+        - Linux
+        - Windows
+    validations:
+      required: true
+
+  - type: dropdown
+    id: agent
+    attributes:
+      label: AI agent in use
+      options:
+        - Claude Code
+        - OpenCode
+        - GitHub Copilot
+        - VS Code
+        - Other / None
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant output or error messages
+      render: shell
