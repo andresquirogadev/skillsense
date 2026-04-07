@@ -10,6 +10,12 @@ Thumbs.db
 
 # IDE and AI assistant configuration (internal, not for contributors)
 .github/copilot-instructions.md
+
+# Demo recording artifacts (local only)
+terminalizer.config.yml
+demo.yml
+demo.gif
+demo-optimized.gif
 .vscode/
 .idea/
 *.suo

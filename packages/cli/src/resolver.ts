@@ -44,7 +44,7 @@ export interface ResolvedSkills {
 
 export const DEFAULT_CATALOG_URL =
   process.env['SKILLSENSE_CATALOG_URL'] ??
-  'https://raw.githubusercontent.com/skillsense/skillsense/main/packages/catalog';
+  'https://raw.githubusercontent.com/andresquirogadev/skillsense/main/packages/catalog';
 
 async function fetchText(url: string): Promise<string> {
   const response = await fetch(url);

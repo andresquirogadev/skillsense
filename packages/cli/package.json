@@ -1,6 +1,6 @@
 {
   "name": "skillsense",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Install the right AI skills for your project stack in one command",
   "type": "module",
   "bin": {
